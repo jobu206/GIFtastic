@@ -6,8 +6,29 @@ body {
     background-size: cover;
     color: #fff;
     font-family: 'Ubuntu', sans-serif;
-  }
-  
-  h1 {
-    font-size: 5em;
-  }
+    font-size: 25px;
+}
+
+.giphy-btns {
+  margin-top: 20px;
+}
+
+.giphy-gifs {
+  margin-top: 25px;
+}
+
+.navbar-brand {
+  font-size: 25px;
+}
+
+.btn {
+  background-color: #343a40;
+  color: #fff;
+  border-color: #fff;
+}
+
+.btn:hover {
+  color: #343a40;
+  background-color: #fff;
+  border-color: #fff;
+}

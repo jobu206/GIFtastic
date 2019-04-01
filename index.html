@@ -9,28 +9,37 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu|Raleway" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/animate.css">
-  <title>Gif-tastic</title>
+  <title>Gif-tastic!</title>
 </head>
 
 <body>
+  <header>
+    <nav class="navbar navbar-dar bg-dark">
+      <a class="navbar-brand">Gif-tastic</a>
+      <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-search my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </nav>
+  </header>
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
-        <h1 class="text-center animated rubberBand">Gif-tastic!!</h1>
+      <div class="col-md giphy-btns">
+        <!-- <button type="button" class="btn btn-dark">Dark</button> -->
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4 btns">
-        <!-- container for buttons -->
-      </div>
-      <div class="col-md-8 gifs">
-        <!-- container for gifs -->
+      <div class="col-md" id="giphy-gifs">
       </div>
     </div>
   </div>
+
+
+  <div id="gify-btns">
+  </div>
+
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -43,6 +52,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 
