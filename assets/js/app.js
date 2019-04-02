@@ -19,38 +19,46 @@
 
 // Document Ready
 $(document).ready(function () {
-    console.log('ready'); 
+    console.log('ready');
     showButtons();
 });
 
 // Global Variables
 var queryURL = 'http://api.giphy.com/v1/gifs/search?q='
-var topics = ['King of the Hill','Beavis and Butthead','Scooby Doo','Justice League'];
+var topics = ['Hoosiers', 'The Natural', 'Miracle', 'Rudy', 'Major League', 'Field of Dreams', 'Karate Kid', 'Glory Road', 'Rocky', 'Talladega Nights', 'The Rookie', 'Hoop Dreams', 'Remember the Titans', 'Friday Night Lights', 'Moneyball', 'Creed'];
 var apiKey = '21cQoZJfPW8AQIF7N8Zzhk9nf41F9ENi';
 var numOfGifs = 10;
 var rating = 'PG';
 
-      // Function for displaying movie data
-      function showButtons() {
+// Function for displaying movie data
+function showButtons() {
+    $("#giphy-btns").empty();
 
-        // Deleting the movie buttons prior to adding new movie buttons
-        // (this is necessary otherwise we will have repeat buttons)
-        $("#giphy-btns").empty();
+    // Looping through the array of movies
+    for (var i = 0; i < topics.length; i++) {
+        var a = $("<button>");
+        a.addClass("btn btn-dark");
+        a.attr("data-name", topics[i]);
+        a.text(topics[i]);
+        $("#giphy-btns").append(a);
+    }
+}
 
-        // Looping through the array of movies
-        for (var i = 0; i < topics.length; i++) {
+// do stuff based on button click
+$(document).on('click')
 
-          // Then dynamicaly generating buttons for each movie in the array.
-          var a = $("<button>");
-          // Adding a class
-          a.addClass("btn btn-dark");
-          // Adding a data-attribute with a value of the movie at index i
-          a.attr("data-name", topics[i]);
-          // Providing the button's text with a value of the movie at index i
-          a.text(topics[i]);
-          // Adding the button to the HTML
-          $("#giphy-btns").append(a);
-        }
-      }
+// Function for NEW buttons based on search criteria
+$('#addGif-btn').on('click', function (event) {
+    event.preventDefault();
+    var gif = $('#addGif-input').val().trim();
+    topics.push(gif);
+    showButtons();
+});
 
-      $()
+// call GIFs from API
+$.ajax({
+    url: queryURL,
+    method: "GET"
+}).then(function (response) {
+    $("#movie-view").text(JSON.stringify(response));
+});
