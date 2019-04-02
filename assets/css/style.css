@@ -9,11 +9,15 @@ body {
     font-size: 25px;
 }
 
-.giphy-btns {
-  margin-top: 20px;
+.btn {
+  margin-right: 5px;
 }
 
-.giphy-gifs {
+#giphy-btns {
+  margin-top: 15px;
+}
+
+#giphy-gifs {
   margin-top: 25px;
 }
 
