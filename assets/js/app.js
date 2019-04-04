@@ -1,64 +1,86 @@
-/*
-- Create HTML to hold buttons, search and gifs.
-    - Create row and col to hold GIFs under buttons
-        - This will be the "front End or HTML"
-- On load, buttons populate on DOM
-    - How will buttons populate on DOM?
-        - On document load buttons will appear.
-    - Hold button values in array
-        - Why an array?
-- Click button and associated gifs will appear.
-    - How will buttons appear?
-    - How will clicking a button show a GIF?
-- Clicking on gif will animate. Click again, stands still.
-    - GIF will first be still.
-    - First click will animate GIF
-    - Second click will make GIF stay still.
-- API Key: 21cQoZJfPW8AQIF7N8Zzhk9nf41F9ENi
-*/
-
-// Document Ready
 $(document).ready(function () {
-    console.log('ready');
-    showButtons();
-});
 
-// Global Variables
-var queryURL = 'http://api.giphy.com/v1/gifs/search?q='
-var topics = ['Hoosiers', 'The Natural', 'Miracle', 'Rudy', 'Major League', 'Field of Dreams', 'Karate Kid', 'Glory Road', 'Rocky', 'Talladega Nights', 'The Rookie', 'Hoop Dreams', 'Remember the Titans', 'Friday Night Lights', 'Moneyball', 'Creed'];
-var apiKey = '21cQoZJfPW8AQIF7N8Zzhk9nf41F9ENi';
-var numOfGifs = 10;
-var rating = 'PG';
+    // array of choices
+    var topics = ["The Natural", "Miracle", "Rudy", "Major League", "Field of Dreams", "Karate Kid", "Glory Road", "Rocky", "Talladega Nights", "The Rookie", "Hoop Dreams", "Remember the Titans", "Friday Night Lights"];
 
-// Function for displaying movie data
-function showButtons() {
-    $("#giphy-btns").empty();
+    // display images
+    function displayGifs() {
 
-    // Looping through the array of movies
-    for (var i = 0; i < topics.length; i++) {
-        var a = $("<button>");
-        a.addClass("btn btn-dark");
-        a.attr("data-name", topics[i]);
-        a.text(topics[i]);
-        $("#giphy-btns").append(a);
+        $("#giphy-btns").empty();
+
+        var gif = $(this).attr("data-gif");
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gif + "&limit=" + limit + rating + "&api_key=21cQoZJfPW8AQIF7N8Zzhk9nf41F9ENi";
+        var rating = "&rating=PG";
+        var limit = 10;
+
+        // AJAX call for "getting" the GIF
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).done(function(response) {
+
+            for (var j = 0; j < limit; j++) {
+                var gifDiv = $("<div>");
+                gifDiv.addClass("gifHolder");
+                var img = $("<img>");
+                img.attr("src", data[j].images.original_still.url);
+                img.attr("data-still", data[j].images.original_still.url);
+                img.attr("data-animate", data[j].images.original_still.url);
+                gifDiv.append(img);
+
+                var gifRating = response.data[j].rating;
+                var domRating = $("<p>").text("Rating: " + gifRating);
+                gifDiv.append(domRating);
+
+                $("#giphy-gifs").append(gifDiv);
+            }
+        })
     }
-}
 
-// do stuff based on button click
-$(document).on('click')
+    // render buttons
+    function renderButtons() {
+        $("#giphy-btns").empty();
 
-// Function for NEW buttons based on search criteria
-$('#addGif-btn').on('click', function (event) {
-    event.preventDefault();
-    var gif = $('#addGif-input').val().trim();
-    topics.push(gif);
-    showButtons();
-});
+        // Looping through the array of movies
+        for (var i = 0; i < topics.length; i++) {
+            var a = $("<button>");
+            a.addClass("btn btn-dark");
+            a.attr("data-gif", topics[i]);
+            a.text(topics[i]);
+            $("#giphy-btns").append(a);
+        }
+    }
 
-// call GIFs from API
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function (response) {
-    $("#movie-view").text(JSON.stringify(response));
+    // change img state
+    function gifChangeState() {
+
+        var state = $(this).attr("data-state");
+        var animateImage = $(this).attr("data-animate");
+        var stillImage = $(this).attr("data-still");
+
+        if (state === "still") {
+            $(this).attr("src", animateImage);
+            $(this).attr("data-state", "animate");
+        }
+
+        else if (state === "animate") {
+            $(this).attr("src", stillImage);
+            $(this).attr("data-state", "still");
+        }
+    }
+
+    // Function for NEW buttons based on search criteria
+    $("#addGif-btn").on("click", function () {
+        event.preventDefault();
+        var gif = $("#addGif-input").val().trim();
+        topics.push(gif);
+
+        renderButtons();
+        // return false;
+    });
+
+    renderButtons();
+
+    $(document).on("click", "#giphy-btns", displayGifs);
+    $(document).on("click", ".gif", gifChangeState);
 });
