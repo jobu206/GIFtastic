@@ -1,34 +1,35 @@
 $(document).ready(function () {
 
-    // array of choices
-    var topics = ["The Natural", "Miracle", "Rudy", "Major League", "Field of Dreams", "Karate Kid", "Glory Road", "Rocky", "Talladega Nights", "The Rookie", "Hoop Dreams", "Remember the Titans", "Friday Night Lights"];
+    var topics = ["Goonies"];
 
-    // display images
     function displayGifs() {
 
         $("#giphy-btns").empty();
-
         var gif = $(this).attr("data-gif");
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gif + "&limit=" + limit + rating + "&api_key=21cQoZJfPW8AQIF7N8Zzhk9nf41F9ENi";
-        var rating = "&rating=PG";
-        var limit = 10;
+        var limit = 1;
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gif + "&limit=" + limit + "&api_key=21cQoZJfPW8AQIF7N8Zzhk9nf41F9ENi";
 
-        // AJAX call for "getting" the GIF
         $.ajax({
             url: queryURL,
             method: "GET"
         }).done(function(response) {
 
             for (var j = 0; j < limit; j++) {
+
                 var gifDiv = $("<div>");
                 gifDiv.addClass("gifHolder");
-                var img = $("<img>");
-                img.attr("src", data[j].images.original_still.url);
-                img.attr("data-still", data[j].images.original_still.url);
-                img.attr("data-animate", data[j].images.original_still.url);
-                gifDiv.append(img);
+                
+                var gifImg = $("<img>");
+                gifImg.attr("src", response.data[j].images.original_still.url);
+                gifImg.attr("data-still", response.data[j].images.original_still.url);
+                gifImg.attr("data-animate", response.data[j].images.original.url);
+                gifImg.attr("data-state","still");
+                gifImg.addClass("gif");
+                gifDiv.append(gifImg);
 
                 var gifRating = response.data[j].rating;
+                console.log(response);
+                
                 var domRating = $("<p>").text("Rating: " + gifRating);
                 gifDiv.append(domRating);
 
@@ -37,12 +38,12 @@ $(document).ready(function () {
         })
     }
 
-    // render buttons
     function renderButtons() {
+
         $("#giphy-btns").empty();
 
-        // Looping through the array of movies
         for (var i = 0; i < topics.length; i++) {
+
             var a = $("<button>");
             a.addClass("btn btn-dark");
             a.attr("data-gif", topics[i]);
@@ -71,12 +72,11 @@ $(document).ready(function () {
 
     // Function for NEW buttons based on search criteria
     $("#addGif-btn").on("click", function () {
-        event.preventDefault();
+
         var gif = $("#addGif-input").val().trim();
         topics.push(gif);
 
         renderButtons();
-        // return false;
     });
 
     renderButtons();

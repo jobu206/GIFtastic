@@ -9,6 +9,10 @@ body {
     font-size: 25px;
 }
 
+a, a:hover, a:visited {
+  color: #fff;
+}
+
 .btn {
   margin-right: 5px;
 }
