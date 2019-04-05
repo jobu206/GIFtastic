@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var topics = ["Mariners","Astros","Phillies","Mets","Red Sox","Baseball","The Sandlot","A League of Their Own"];
+    var topics = ["Mariners","Astros","Phillies","Mets","Red Sox","Baseball","The Sandlot","A League of Their Own","Major League","Field of Dreams","Clayton Kershaw","Mike Trout","Griffey","Moneyball"];
 
     function displayGifs() {
 
