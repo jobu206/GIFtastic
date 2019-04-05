@@ -1,7 +1,7 @@
 # Giph-tastic
 Utilizing the Giphy API, I have created an app which displays a list of choices in the manner of buttons. Secondly, you can search for a topic from Giphy's website in the search field in the upper right corner of the screen. When you click on the buttons, you are presented with 10 GIFs associated with that particular topic. The GIF will animate and stay still when clicked on and off.
 
-![Screenshot](./assets/images/GIFtastic.PNG)
+![Screenshot](./assets/images/GIFtastic.png)
 
 ## Installation
 
