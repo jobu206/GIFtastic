@@ -1,15 +1,14 @@
 $(document).ready(function () {
 
-    var topics = ["Mariners","Astros","Phillies","Mets","Red Sox","Baseball"];
+    var topics = ["Mariners","Astros","Phillies","Mets","Red Sox","Baseball","The Sandlot","A League of Their Own"];
 
     function displayGifs() {
 
         $("#giphy-gifs").empty();
         var type = $(this).attr("data-type");
         var limit = 10;
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + type + "&api_key=21cQoZJfPW8AQIF7N8Zzhk9nf41F9ENi&limit=" + limit;
-        console.log(queryURL);
-        
+        var rating = "&rating=pg";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + type + "&api_key=21cQoZJfPW8AQIF7N8Zzhk9nf41F9ENi&limit=" + limit + rating;
 
         $.ajax({
             url: queryURL,
@@ -28,24 +27,17 @@ $(document).ready(function () {
                 gifImg.attr("data-state","still");
                 gifImg.addClass("gif");
                 gifDiv.append(gifImg);
-
                 var gifRating = response.data[j].rating;
-                console.log(response);
-                
                 var domRating = $("<p>").text("Rating: " + gifRating);
                 gifDiv.append(domRating);
-
                 $("#giphy-gifs").append(gifDiv);
             }
         })
     }
 
     function renderButtons() {
-
         $("#giphy-btns").empty();
-
         for (var i = 0; i < topics.length; i++) {
-
             var a = $("<button>");
             a.addClass("btn btn-dark gif-btn");
             a.attr("data-type", topics[i]);
