@@ -1,13 +1,15 @@
 $(document).ready(function () {
 
-    var topics = ["Goonies"];
+    var topics = ["Mariners","Astros","Phillies","Mets"];
 
     function displayGifs() {
 
-        $("#giphy-btns").empty();
-        var gif = $(this).attr("data-gif");
-        var limit = 1;
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gif + "&limit=" + limit + "&api_key=21cQoZJfPW8AQIF7N8Zzhk9nf41F9ENi";
+        $("#giphy-gifs").empty();
+        var type = $(this).attr("data-type");
+        var limit = 10;
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + type + "&api_key=21cQoZJfPW8AQIF7N8Zzhk9nf41F9ENi&limit=" + limit;
+        console.log(queryURL);
+        
 
         $.ajax({
             url: queryURL,
@@ -20,9 +22,9 @@ $(document).ready(function () {
                 gifDiv.addClass("gifHolder");
                 
                 var gifImg = $("<img>");
-                gifImg.attr("src", response.data[j].images.original_still.url);
-                gifImg.attr("data-still", response.data[j].images.original_still.url);
-                gifImg.attr("data-animate", response.data[j].images.original.url);
+                gifImg.attr("src", response.data[j].images.fixed_height_small_still.url);
+                gifImg.attr("data-still", response.data[j].images.fixed_height_small_still.url);
+                gifImg.attr("data-animate", response.data[j].images.fixed_height_small.url);
                 gifImg.attr("data-state","still");
                 gifImg.addClass("gif");
                 gifDiv.append(gifImg);
@@ -45,8 +47,8 @@ $(document).ready(function () {
         for (var i = 0; i < topics.length; i++) {
 
             var a = $("<button>");
-            a.addClass("btn btn-dark");
-            a.attr("data-gif", topics[i]);
+            a.addClass("btn btn-dark gif-btn");
+            a.attr("data-type", topics[i]);
             a.text(topics[i]);
             $("#giphy-btns").append(a);
         }
@@ -71,16 +73,15 @@ $(document).ready(function () {
     }
 
     // Function for NEW buttons based on search criteria
-    $("#addGif-btn").on("click", function () {
-
+    $('#addGif-btn').on("click", function () {
+        event.preventDefault();
         var gif = $("#addGif-input").val().trim();
         topics.push(gif);
-
         renderButtons();
     });
 
     renderButtons();
 
-    $(document).on("click", "#giphy-btns", displayGifs);
+    $(document).on("click", ".gif-btn", displayGifs);
     $(document).on("click", ".gif", gifChangeState);
 });
