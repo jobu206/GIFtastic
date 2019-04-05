@@ -40,3 +40,12 @@ a, a:hover, a:visited {
   background-color: #fff;
   border-color: #fff;
 }
+
+h1 {
+  font-family: 'Ubuntu', sans-serif; 
+}
+
+p {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 20px;
+}

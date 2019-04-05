@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var topics = ["Mariners","Astros","Phillies","Mets"];
+    var topics = ["Mariners","Astros","Phillies","Mets","Red Sox","Baseball"];
 
     function displayGifs() {
 
